@@ -1,0 +1,154 @@
+{
+  "brand": {
+    "primary": "#ea580c",
+    "secondary": "#fb923c",
+    "accent": "#ffedd5",
+    "dark": "#111111",
+    "light": "#fff7ed"
+  },
+  "leader": {
+    "name": "Vikram Sakhare",
+    "designation": "Sarpanch",
+    "constituency": "Hinjewadi Grampanchayat",
+    "slogan": "Seva, Vikas, Vishwas",
+    "bio": "Vikram Sakhare is dedicated to local governance, people-first development, and transparent public service in Hinjewadi Grampanchayat.",
+    "vision": "A cleaner, smarter, and inclusive Hinjewadi where every family has access to quality roads, water, health, and opportunities.",
+    "mission": "To strengthen village infrastructure, empower youth and women, and build responsive governance through regular public engagement."
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/sarpanch_vikram_sakhare009/"
+  },
+  "heroStats": [
+    {
+      "label": "Public Meetings",
+      "value": "120+"
+    },
+    {
+      "label": "Citizen Issues Resolved",
+      "value": "850+"
+    },
+    {
+      "label": "Development Initiatives",
+      "value": "35+"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Local Road Upgradation Drive",
+      "year": "2025",
+      "description": "Focused efforts to repair and improve key internal village roads for safer mobility."
+    },
+    {
+      "title": "Water Access Coordination",
+      "year": "2024",
+      "description": "Strengthened local supply planning and citizen coordination for steady water access."
+    },
+    {
+      "title": "Community Cleanliness Campaign",
+      "year": "2024",
+      "description": "Launched regular cleanliness drives with youth volunteers and local ward teams."
+    }
+  ],
+  "schemes": [
+    {
+      "title": "Rural Housing Support",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus feugiat arcu, vitae posuere lacus."
+    },
+    {
+      "title": "Women Self-Help Program",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed sapien at justo gravida mattis."
+    },
+    {
+      "title": "Village Digital Services",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et eros ut nibh commodo bibendum."
+    }
+  ],
+  "developmentWorks": [
+    {
+      "category": "Roads",
+      "status": "In Progress",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel velit id dolor malesuada pharetra."
+    },
+    {
+      "category": "Water",
+      "status": "Ongoing",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Proin commodo urna sed urna suscipit."
+    },
+    {
+      "category": "Healthcare",
+      "status": "Planning Phase",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat lectus in ligula viverra ultricies."
+    },
+    {
+      "category": "Schools",
+      "status": "In Progress",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed condimentum tincidunt neque, a cursus nisl."
+    }
+  ],
+  "media": [
+    {
+      "title": "Village Interaction Session",
+      "source": "Local Community Bulletin",
+      "date": "March 2026",
+      "link": "#"
+    },
+    {
+      "title": "Infrastructure Review Meeting",
+      "source": "Citizen Press Note",
+      "date": "February 2026",
+      "link": "#"
+    },
+    {
+      "title": "Women Empowerment Outreach",
+      "source": "Local Updates",
+      "date": "January 2026",
+      "link": "#"
+    }
+  ],
+  "events": [
+    {
+      "title": "Jan Samvad Sabha",
+      "date": "05 April 2026",
+      "location": "Hinjewadi Community Ground"
+    },
+    {
+      "title": "Village Cleanliness Drive",
+      "date": "12 April 2026",
+      "location": "Ward 2, Hinjewadi"
+    },
+    {
+      "title": "Youth Leadership Meet",
+      "date": "20 April 2026",
+      "location": "Grampanchayat Hall"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Local Resident",
+      "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dignissim ex vitae tortor finibus suscipit."
+    },
+    {
+      "name": "Self-Help Group Member",
+      "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo lectus id nisl viverra, in posuere elit dapibus."
+    },
+    {
+      "name": "Young Volunteer",
+      "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc malesuada elit eget nisl tristique porta."
+    }
+  ],
+  "gallery": {
+    "images": [
+      "images/Image-743.jpg",
+      "images/537449912_18086293852828813_7246159672192579053_n.jpg",
+      "images/475412660_18067243195828813_5220031457698049185_n.jpg",
+      "images/475403871_18067243186828813_8981781678555772108_n.jpg",
+      "images/475380999_18067243174828813_4545561710793591930_n.jpg"
+    ],
+    "video": "images/Video-131.mp4"
+  },
+  "contact": {
+    "officeAddress": "Hinjewadi Grampanchayat Office, Pune, Maharashtra",
+    "email": "contact@vikramsakhare.in",
+    "phone": "+91 90000 00000"
+  }
+}
