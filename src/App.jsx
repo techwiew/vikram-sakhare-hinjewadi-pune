@@ -109,6 +109,7 @@ export default function App() {
   }
 
   const images = asArray(data.gallery?.images);
+  const heroImage = data.gallery?.heroImage || images[0];
   const stats = asArray(data.heroStats);
   const currentYear = new Date().getFullYear();
   const instagramUrl = safeExternalUrl(data.social?.instagram);
@@ -184,7 +185,7 @@ export default function App() {
               </div>
             </div>
             <div className="reveal">
-              <img className="hero-photo" src={images[0]} alt={data.leader?.name} loading="eager" />
+              <img className="hero-photo" src={heroImage} alt={data.leader?.name} loading="eager" />
             </div>
           </div>
         </section>
