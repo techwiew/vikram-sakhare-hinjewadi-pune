@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { asArray, safeExternalUrl } from "./utils/safe";
 
 const sectionTitle = (tag, title, subtitle) => (
@@ -21,6 +22,35 @@ const ExternalLink = ({ href, children, className = "" }) => {
       {children}
     </a>
   );
+};
+
+const riseVariant = {
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const popVariant = {
+  hidden: { opacity: 0, scale: 0.95, y: 16 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const staggerVariant = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
 };
 
 export default function App() {
@@ -93,6 +123,7 @@ export default function App() {
   const stats = asArray(data?.heroStats);
   const currentYear = new Date().getFullYear();
   const instagramUrl = safeExternalUrl(data?.social?.instagram);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (!data) {
@@ -188,8 +219,19 @@ export default function App() {
 
   return (
     <>
-      <div className="bg-orb orb-one" aria-hidden="true" />
-      <div className="bg-orb orb-two" aria-hidden="true" />
+      <motion.div
+        className="bg-orb orb-one"
+        aria-hidden="true"
+        animate={prefersReducedMotion ? undefined : { y: [0, -16, 0], scale: [1, 1.05, 1] }}
+        transition={prefersReducedMotion ? undefined : { duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="bg-orb orb-two"
+        aria-hidden="true"
+        animate={prefersReducedMotion ? undefined : { y: [0, 14, 0], scale: [1, 0.96, 1] }}
+        transition={prefersReducedMotion ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <div className="bg-grid" aria-hidden="true" />
 
       <header className="site-header">
         <div className="container nav-wrap">
@@ -236,62 +278,89 @@ export default function App() {
 
       <main>
         <section id="home">
-          <div className="container reveal">
+          <motion.div
+            className="container reveal"
+            variants={riseVariant}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <div className="hero-banner-wrap">
-              <img
+              <motion.img
                 key={currentBannerIndex}
                 className="hero-banner"
                 src={activeBannerImage}
                 alt={`${data.leader?.name} banner ${currentBannerIndex + 1}`}
                 loading="eager"
+                initial={prefersReducedMotion ? false : { opacity: 0, scale: 1.03 }}
+                animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
               />
               <div className="hero-banner-overlay" aria-hidden="true" />
               {bannerImages.length > 1 ? (
                 <div className="hero-banner-dots" aria-hidden="true">
                   {bannerImages.map((_, index) => (
-                    <span
+                    <motion.span
                       key={`banner-dot-${index}`}
                       className={`hero-banner-dot ${index === currentBannerIndex ? "active" : ""}`}
+                      animate={index === currentBannerIndex ? { scale: 1.06 } : { scale: 1 }}
+                      transition={{ duration: 0.25 }}
                     />
                   ))}
                 </div>
               ) : null}
             </div>
-          </div>
-          <div className="container hero-grid">
-            <div>
-              <h1 className="hero-title reveal">{data.leader?.name}</h1>
-              <p className="hero-sub reveal">{data.leader?.constituency}</p>
-              <p className="hero-sub reveal">
+          </motion.div>
+          <motion.div
+            className="container hero-grid"
+            variants={staggerVariant}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div variants={riseVariant}>
+              <motion.h1 className="hero-title reveal" variants={riseVariant}>
+                {data.leader?.name}
+              </motion.h1>
+              <motion.p className="hero-sub reveal" variants={riseVariant}>
+                {data.leader?.constituency}
+              </motion.p>
+              <motion.p className="hero-sub reveal" variants={riseVariant}>
                 <strong>{data.leader?.slogan}</strong>
-              </p>
-              <p className="hero-sub reveal">{data.leader?.bio}</p>
-              <div className="hero-actions reveal">
+              </motion.p>
+              <motion.p className="hero-sub reveal" variants={riseVariant}>
+                {data.leader?.bio}
+              </motion.p>
+              <motion.div className="hero-actions reveal" variants={riseVariant}>
                 <a className="btn btn-primary" href="#contact">
                   Connect Now
                 </a>
                 <ExternalLink href={instagramUrl} className="btn btn-outline">
                   Instagram
                 </ExternalLink>
-              </div>
-              <div className="stats">
+              </motion.div>
+              <motion.div className="stats" variants={staggerVariant}>
                 {stats.map((item) => (
-                  <article key={item.label} className="stat reveal">
+                  <motion.article key={item.label} className="stat reveal" variants={popVariant}>
                     <strong>{item.value}</strong>
                     <span>{item.label}</span>
-                  </article>
+                  </motion.article>
                 ))}
-              </div>
-            </div>
-            <div className="reveal">
-              <img
+              </motion.div>
+            </motion.div>
+            <motion.div className="reveal" variants={riseVariant}>
+              <motion.img
                 className="hero-photo"
                 src={heroImage}
                 alt={data.leader?.name}
                 loading="eager"
+                initial={prefersReducedMotion ? false : { opacity: 0, x: 20, rotate: 1.3 }}
+                whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, x: 0, rotate: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, amount: 0.3 }}
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         <section id="about">
@@ -327,11 +396,18 @@ export default function App() {
             {sectionTitle("Achievements", "Work That Creates Local Impact")}
             <div className="cards-grid">
               {asArray(data.achievements).map((item) => (
-                <article key={item.title} className="card reveal">
+                <motion.article
+                  key={item.title}
+                  className="card reveal"
+                  variants={popVariant}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.18 }}
+                >
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                   <p className="meta-line">{item.year}</p>
-                </article>
+                </motion.article>
               ))}
             </div>
           </div>
@@ -345,10 +421,17 @@ export default function App() {
             )}
             <div className="cards-grid">
               {asArray(data.schemes).map((item) => (
-                <article key={item.title} className="card reveal">
+                <motion.article
+                  key={item.title}
+                  className="card reveal"
+                  variants={popVariant}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.18 }}
+                >
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
-                </article>
+                </motion.article>
               ))}
             </div>
           </div>
@@ -362,11 +445,18 @@ export default function App() {
             )}
             <div className="cards-grid">
               {asArray(data.developmentWorks).map((item) => (
-                <article key={item.category} className="card reveal">
+                <motion.article
+                  key={item.category}
+                  className="card reveal"
+                  variants={popVariant}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.18 }}
+                >
                   <h3>{item.category}</h3>
                   <p>{item.description}</p>
                   <p className="meta-line">Status: {item.status}</p>
-                </article>
+                </motion.article>
               ))}
             </div>
           </div>
@@ -377,12 +467,16 @@ export default function App() {
             {sectionTitle("Gallery", "Work, Events, and Community Moments")}
             <div className="gallery-grid">
               {images.map((src, i) => (
-                <img
+                <motion.img
                   key={`${src}-${i}`}
                   src={src}
                   alt={`Gallery ${i + 1}`}
                   className="reveal"
                   loading="lazy"
+                  variants={popVariant}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.2 }}
                 />
               ))}
             </div>

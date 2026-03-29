@@ -33,6 +33,7 @@ body {
   color: var(--dark);
   background: linear-gradient(180deg, #fffaf5 0%, #ffffff 75%);
   overflow-x: hidden;
+  background-attachment: fixed;
 }
 
 a {
@@ -146,12 +147,17 @@ main section {
   box-shadow: 0 14px 30px rgba(17, 17, 17, 0.14);
   margin-bottom: 1.4rem;
   background: #fff7ed;
+  min-height: clamp(240px, 40vw, 500px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
 }
 
 .hero-banner {
   width: 100%;
-  height: auto;
-  max-height: 78vh;
+  height: 100%;
+  max-height: min(78vh, 500px);
   object-fit: contain;
   object-position: center top;
   display: block;
@@ -163,6 +169,22 @@ main section {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.05));
+}
+
+.hero-banner-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -180% -30%;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 38%,
+    rgba(255, 255, 255, 0.26) 48%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  transform: translateX(-45%) rotate(8deg);
+  animation: bannerSweep 7s linear infinite;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero-banner-dots {
@@ -181,11 +203,13 @@ main section {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
   transition: width 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0);
 }
 
 .hero-banner-dot.active {
   width: 18px;
   background: #ffffff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.82);
 }
 
 .section-tag {
@@ -244,10 +268,34 @@ main section {
   padding: 0.7rem 1rem;
   font-weight: 700;
   transition: transform 0.24s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:hover {
   transform: translateY(-2px);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: -130%;
+  left: -35%;
+  width: 35%;
+  height: 320%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0)
+  );
+  transform: rotate(22deg) translateX(-220%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  transform: rotate(22deg) translateX(450%);
 }
 
 .btn-primary {
@@ -264,13 +312,14 @@ main section {
 
 .hero-photo {
   width: 100%;
-  height: min(65vh, 560px);
-  object-fit: cover;
-  object-position: top center;
+  height: min(68vh, 560px);
+  object-fit: contain;
+  object-position: center top;
   border-radius: 20px;
   border: 2px solid rgba(234, 88, 12, 0.2);
   box-shadow: var(--card-shadow);
   animation: photoGlow 4.2s ease-in-out infinite;
+  background: #fff7ed;
 }
 
 .stats {
@@ -287,12 +336,30 @@ main section {
   border-radius: var(--radius);
   box-shadow: var(--card-shadow);
   transition: transform 0.28s ease, box-shadow 0.28s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .stat:hover,
 .card:hover {
   transform: translateY(-6px);
   box-shadow: 0 18px 30px rgba(17, 17, 17, 0.12);
+}
+
+.stat::before,
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(120px circle at var(--x, 50%) var(--y, 50%), rgba(251, 146, 60, 0.24), transparent 72%);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  pointer-events: none;
+}
+
+.stat:hover::before,
+.card:hover::before {
+  opacity: 1;
 }
 
 .stat {
@@ -336,8 +403,8 @@ main section {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.75rem;
 }
 
 .gallery-grid img {
@@ -349,6 +416,13 @@ main section {
   border-radius: 11px;
   border: 1px solid rgba(17, 17, 17, 0.1);
   background: #fff7ed;
+  transition: transform 0.34s ease, box-shadow 0.34s ease, filter 0.34s ease;
+}
+
+.gallery-grid img:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(17, 17, 17, 0.16);
+  filter: saturate(1.06) contrast(1.02);
 }
 
 .video-wrap {
@@ -357,6 +431,7 @@ main section {
   overflow: hidden;
   border: 2px solid rgba(234, 88, 12, 0.2);
   box-shadow: var(--card-shadow);
+  position: relative;
 }
 
 .video-wrap video {
@@ -398,6 +473,19 @@ main section {
   z-index: -1;
   opacity: 0.14;
   filter: blur(60px);
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.17;
+  background-image:
+    linear-gradient(rgba(234, 88, 12, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(234, 88, 12, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(circle at 50% 22%, black 40%, transparent 82%);
 }
 
 .orb-one {
@@ -489,6 +577,26 @@ main section {
   }
 }
 
+@keyframes bannerSweep {
+  0% {
+    transform: translateX(-55%) rotate(8deg);
+  }
+  100% {
+    transform: translateX(130%) rotate(8deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @media (max-width: 980px) {
   .hero-grid,
   .two-col {
@@ -500,7 +608,7 @@ main section {
   }
 
   .gallery-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 }
 
@@ -522,7 +630,7 @@ main section {
   }
 
   .hero-banner {
-    height: auto;
+    height: 100%;
     max-height: 62vh;
     object-position: center top;
   }
@@ -530,6 +638,7 @@ main section {
   .hero-banner-wrap {
     border-radius: 14px;
     margin-bottom: 1rem;
+    min-height: clamp(200px, 58vw, 340px);
   }
 
   .nav {
@@ -558,8 +667,7 @@ main section {
   }
 
   .hero-photo {
-    height: auto;
-    max-height: 70vh;
+    height: min(62vh, 440px);
     object-fit: contain;
     border-radius: 14px;
   }
@@ -631,6 +739,7 @@ main section {
 
   .hero-banner-wrap {
     margin-bottom: 0.85rem;
+    min-height: clamp(180px, 65vw, 280px);
   }
 
   .nav {
