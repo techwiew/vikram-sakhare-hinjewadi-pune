@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { asArray, safeExternalUrl } from "./utils/safe";
 
 const sectionTitle = (tag, title, subtitle) => (
@@ -28,6 +28,7 @@ export default function App() {
   const [data, setData] = useState(null);
   const [loadError, setLoadError] = useState("");
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     let active = true;
@@ -111,6 +112,54 @@ export default function App() {
 
     return () => window.clearInterval(timer);
   }, [bannerImages]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.volume = 0.5;
+          video.muted = false;
+          const playPromise = video.play();
+          if (playPromise?.catch) {
+            playPromise.catch(() => {
+              video.muted = true;
+              video.play().catch(() => {});
+            });
+          }
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.5 },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [data]);
+
+  useEffect(() => {
+    const enableAudioOnInteraction = () => {
+      const video = videoRef.current;
+      if (!video) {
+        return;
+      }
+      video.volume = 0.5;
+      video.muted = false;
+    };
+
+    window.addEventListener("pointerdown", enableAudioOnInteraction, { once: true });
+    window.addEventListener("keydown", enableAudioOnInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", enableAudioOnInteraction);
+      window.removeEventListener("keydown", enableAudioOnInteraction);
+    };
+  }, []);
 
   if (loadError) {
     return (
@@ -338,7 +387,7 @@ export default function App() {
               ))}
             </div>
             <div className="video-wrap reveal">
-              <video controls preload="metadata" playsInline>
+              <video ref={videoRef} controls preload="metadata" playsInline muted>
                 <source src={data.gallery?.video} type="video/mp4" />
               </video>
             </div>
