@@ -122,7 +122,12 @@ export default function App() {
       <header className="site-header">
         <div className="container nav-wrap">
           <a className="brand" href="#home">
-            <img className="brand-logo" src="/images/bjp-logo.png" alt="BJP logo" loading="eager" />
+            <img
+              className="brand-logo"
+              src="/images/bjp-logo.png"
+              alt="BJP logo"
+              loading="eager"
+            />
             <span>{data.leader?.name}</span>
           </a>
           <button
@@ -161,7 +166,6 @@ export default function App() {
         <section id="home">
           <div className="container hero-grid">
             <div>
-              <span className="section-tag designation-tag reveal">{data.leader?.designation}</span>
               <h1 className="hero-title reveal">{data.leader?.name}</h1>
               <p className="hero-sub reveal">{data.leader?.constituency}</p>
               <p className="hero-sub reveal">
@@ -186,14 +190,22 @@ export default function App() {
               </div>
             </div>
             <div className="reveal">
-              <img className="hero-photo" src={heroImage} alt={data.leader?.name} loading="eager" />
+              <img
+                className="hero-photo"
+                src={heroImage}
+                alt={data.leader?.name}
+                loading="eager"
+              />
             </div>
           </div>
         </section>
 
         <section id="about">
           <div className="container">
-            {sectionTitle("About Leader", "Leadership Rooted in Public Service")}
+            {sectionTitle(
+              "About Leader",
+              "Leadership Rooted in Public Service",
+            )}
             <article className="card reveal">
               <p>{data.leader?.bio}</p>
             </article>
@@ -233,7 +245,10 @@ export default function App() {
 
         <section id="schemes">
           <div className="container">
-            {sectionTitle("Government Schemes", "Citizen-Centric Support Programs")}
+            {sectionTitle(
+              "Government Schemes",
+              "Citizen-Centric Support Programs",
+            )}
             <div className="cards-grid">
               {asArray(data.schemes).map((item) => (
                 <article key={item.title} className="card reveal">
@@ -247,7 +262,10 @@ export default function App() {
 
         <section id="development">
           <div className="container">
-            {sectionTitle("Constituency Development", "Ground-Level Progress Overview")}
+            {sectionTitle(
+              "Constituency Development",
+              "Ground-Level Progress Overview",
+            )}
             <div className="cards-grid">
               {asArray(data.developmentWorks).map((item) => (
                 <article key={item.category} className="card reveal">
@@ -265,7 +283,13 @@ export default function App() {
             {sectionTitle("Gallery", "Work, Events, and Community Moments")}
             <div className="gallery-grid">
               {images.map((src, i) => (
-                <img key={`${src}-${i}`} src={src} alt={`Gallery ${i + 1}`} className="reveal" loading="lazy" />
+                <img
+                  key={`${src}-${i}`}
+                  src={src}
+                  alt={`Gallery ${i + 1}`}
+                  className="reveal"
+                  loading="lazy"
+                />
               ))}
             </div>
             <div className="video-wrap reveal">
@@ -293,7 +317,10 @@ export default function App() {
                   <strong>Email:</strong> {data.contact?.email}
                 </p>
                 <p>
-                  <strong>Instagram:</strong> <ExternalLink href={instagramUrl}>{instagramUrl}</ExternalLink>
+                  <strong>Instagram:</strong>{" "}
+                  <ExternalLink href={instagramUrl}>
+                    {instagramUrl}
+                  </ExternalLink>
                 </p>
               </article>
             </div>
