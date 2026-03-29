@@ -27,6 +27,7 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [data, setData] = useState(null);
   const [loadError, setLoadError] = useState("");
+  const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -83,6 +84,34 @@ export default function App() {
     return () => observer.disconnect();
   }, [data]);
 
+  const images = asArray(data?.gallery?.images);
+  const heroImage = data?.gallery?.heroImage || images[0];
+  const heroBannerImages = asArray(data?.heroBannerImages);
+  const bannerImages = heroBannerImages.length > 0 ? heroBannerImages : images;
+  const activeBannerImage = bannerImages[currentBannerIndex] || heroImage;
+  const stats = asArray(data?.heroStats);
+  const currentYear = new Date().getFullYear();
+  const instagramUrl = safeExternalUrl(data?.social?.instagram);
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    setCurrentBannerIndex(0);
+  }, [data]);
+
+  useEffect(() => {
+    if (bannerImages.length <= 1) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setCurrentBannerIndex((prev) => (prev + 1) % bannerImages.length);
+    }, 3000);
+
+    return () => window.clearInterval(timer);
+  }, [bannerImages]);
+
   if (loadError) {
     return (
       <main>
@@ -107,12 +136,6 @@ export default function App() {
       </main>
     );
   }
-
-  const images = asArray(data.gallery?.images);
-  const heroImage = data.gallery?.heroImage || images[0];
-  const stats = asArray(data.heroStats);
-  const currentYear = new Date().getFullYear();
-  const instagramUrl = safeExternalUrl(data.social?.instagram);
 
   return (
     <>
@@ -164,6 +187,28 @@ export default function App() {
 
       <main>
         <section id="home">
+          <div className="container reveal">
+            <div className="hero-banner-wrap">
+              <img
+                key={currentBannerIndex}
+                className="hero-banner"
+                src={activeBannerImage}
+                alt={`${data.leader?.name} banner ${currentBannerIndex + 1}`}
+                loading="eager"
+              />
+              <div className="hero-banner-overlay" aria-hidden="true" />
+              {bannerImages.length > 1 ? (
+                <div className="hero-banner-dots" aria-hidden="true">
+                  {bannerImages.map((_, index) => (
+                    <span
+                      key={`banner-dot-${index}`}
+                      className={`hero-banner-dot ${index === currentBannerIndex ? "active" : ""}`}
+                    />
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
           <div className="container hero-grid">
             <div>
               <h1 className="hero-title reveal">{data.leader?.name}</h1>
