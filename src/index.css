@@ -389,10 +389,10 @@ main section {
 
 @keyframes titleShine {
   0% {
-    background-position: 0% center;
+    background-position: 200% center;
   }
   100% {
-    background-position: 200% center;
+    background-position: 0% center;
   }
 }
 
