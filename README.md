@@ -1,6 +1,6 @@
 # Vikram Sakhare Website (React)
 
-React + Vite website for `Vikram Sakhare (Sarpanch, Hinjewadi Grampanchayat)`.
+React + Vite website for `Vikram Sakhare (Sarpanch, Hinjawad Grampanchayat)`.
 
 ## Run
 

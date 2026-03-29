@@ -308,7 +308,7 @@ export default function App() {
 
         <section id="vision">
           <div className="container">
-            {sectionTitle("Vision & Mission", "Future-Ready Hinjewadi")}
+            {sectionTitle("Vision & Mission", "Future-Ready Hinjawad")}
             <div className="two-col">
               <article className="card reveal">
                 <h3>Vision</h3>
@@ -387,7 +387,13 @@ export default function App() {
               ))}
             </div>
             <div className="video-wrap reveal">
-              <video ref={videoRef} controls preload="metadata" playsInline muted>
+              <video
+                ref={videoRef}
+                controls
+                preload="metadata"
+                playsInline
+                muted
+              >
                 <source src={data.gallery?.video} type="video/mp4" />
               </video>
             </div>
