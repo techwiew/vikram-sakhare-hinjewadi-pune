@@ -122,7 +122,8 @@ export default function App() {
       <header className="site-header">
         <div className="container nav-wrap">
           <a className="brand" href="#home">
-            {data.leader?.name}
+            <img className="brand-logo" src="/images/bjp-logo.png" alt="BJP logo" loading="eager" />
+            <span>{data.leader?.name}</span>
           </a>
           <button
             type="button"
@@ -160,7 +161,7 @@ export default function App() {
         <section id="home">
           <div className="container hero-grid">
             <div>
-              <span className="section-tag reveal">{data.leader?.designation}</span>
+              <span className="section-tag designation-tag reveal">{data.leader?.designation}</span>
               <h1 className="hero-title reveal">{data.leader?.name}</h1>
               <p className="hero-sub reveal">{data.leader?.constituency}</p>
               <p className="hero-sub reveal">
@@ -259,37 +260,6 @@ export default function App() {
           </div>
         </section>
 
-        <section id="media">
-          <div className="container">
-            {sectionTitle("Media & News", "Latest Public Highlights")}
-            <div className="list-layout">
-              {asArray(data.media).map((item) => (
-                <article key={`${item.title}-${item.date}`} className="list-item reveal">
-                  <h3>{item.title}</h3>
-                  <p>
-                    {item.source} | {item.date}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="events">
-          <div className="container">
-            {sectionTitle("Events & Campaigns", "Meetings and Campaign Calendar")}
-            <div className="list-layout">
-              {asArray(data.events).map((item) => (
-                <article key={`${item.title}-${item.date}`} className="list-item reveal">
-                  <h3>{item.title}</h3>
-                  <p>{item.date}</p>
-                  <p>{item.location}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section id="gallery">
           <div className="container">
             {sectionTitle("Gallery", "Work, Events, and Community Moments")}
@@ -302,20 +272,6 @@ export default function App() {
               <video controls preload="metadata" playsInline>
                 <source src={data.gallery?.video} type="video/mp4" />
               </video>
-            </div>
-          </div>
-        </section>
-
-        <section id="testimonials">
-          <div className="container">
-            {sectionTitle("Testimonials", "Voices from the Community")}
-            <div className="cards-grid">
-              {asArray(data.testimonials).map((item) => (
-                <article key={item.name} className="card reveal">
-                  <p>"{item.quote}"</p>
-                  <p className="meta-line">{item.name}</p>
-                </article>
-              ))}
             </div>
           </div>
         </section>
