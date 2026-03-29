@@ -145,15 +145,18 @@ main section {
   border: 2px solid rgba(234, 88, 12, 0.25);
   box-shadow: 0 14px 30px rgba(17, 17, 17, 0.14);
   margin-bottom: 1.4rem;
+  background: #fff7ed;
 }
 
 .hero-banner {
   width: 100%;
-  height: clamp(220px, 36vw, 430px);
-  object-fit: cover;
-  object-position: center;
+  height: auto;
+  max-height: 78vh;
+  object-fit: contain;
+  object-position: center top;
   display: block;
   animation: bannerFade 0.5s ease;
+  margin-inline: auto;
 }
 
 .hero-banner-overlay {
@@ -339,11 +342,13 @@ main section {
 
 .gallery-grid img {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  object-fit: contain;
   object-position: center;
   border-radius: 11px;
   border: 1px solid rgba(17, 17, 17, 0.1);
+  background: #fff7ed;
 }
 
 .video-wrap {
@@ -502,6 +507,8 @@ main section {
 @media (max-width: 760px) {
   .menu-toggle {
     display: inline-flex;
+    padding: 0.45rem 0.68rem;
+    font-size: 0.94rem;
   }
 
   .brand {
@@ -515,8 +522,9 @@ main section {
   }
 
   .hero-banner {
-    height: clamp(180px, 52vw, 250px);
-    object-position: center;
+    height: auto;
+    max-height: 62vh;
+    object-position: center top;
   }
 
   .hero-banner-wrap {
@@ -526,7 +534,7 @@ main section {
 
   .nav {
     position: absolute;
-    top: 70px;
+    top: 64px;
     right: 1rem;
     left: 1rem;
     background: #fff;
@@ -557,8 +565,9 @@ main section {
   }
 
   .gallery-grid img {
+    aspect-ratio: 4 / 3;
     height: auto;
-    max-height: 70vh;
+    max-height: none;
     object-fit: contain;
     border-radius: 10px;
   }
@@ -570,5 +579,88 @@ main section {
   .footer-wrap {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 1rem);
+  }
+
+  .nav-wrap {
+    min-height: 62px;
+    gap: 0.5rem;
+  }
+
+  .brand {
+    max-width: calc(100% - 86px);
+    font-size: 0.9rem;
+    gap: 0.38rem;
+    letter-spacing: 0.2px;
+  }
+
+  .brand span {
+    line-height: 1.15;
+  }
+
+  .brand-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 9vw, 2.2rem);
+    line-height: 1.1;
+  }
+
+  .hero-sub {
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    gap: 0.55rem;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-banner {
+    max-height: 56vh;
+  }
+
+  .hero-banner-wrap {
+    margin-bottom: 0.85rem;
+  }
+
+  .nav {
+    top: 62px;
+    right: 0.5rem;
+    left: 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand {
+    font-size: 0.84rem;
+    max-width: calc(100% - 80px);
+  }
+
+  .brand-logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .menu-toggle {
+    padding: 0.36rem 0.58rem;
+    font-size: 0.88rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.6rem, 8.8vw, 2rem);
+  }
+
+  .hero-banner {
+    max-height: 52vh;
   }
 }
